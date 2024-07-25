@@ -13,6 +13,5 @@ class Visitor(models.Model):
     approval_status = models.CharField(max_length=50)  # (Pending, Approved, Rejected)
     visit_time = models.DateTimeField()
     security_personnel = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='security_visitors')
-    resident = models.ForeignKey(Resident, on_delete=models.SET_NULL, null=True, related_name='visitors')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
