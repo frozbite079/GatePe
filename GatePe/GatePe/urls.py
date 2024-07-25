@@ -20,13 +20,13 @@ from django.urls import path,include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("bookings/", include("Bookings.urls")),
-    path("facilities/", include("Facilities.urls")),
-    path("residents/", include("Residents.urls")),
-    path("visitors/", include("Visitors.urls")),
-    path("estates/", include("Estates.urls")),
-    path("gatepeapp/", include("GatePeApp.urls")),
-    path("community/", include("Community.urls")),
+    path("", include("Bookings.urls")),
+    path("", include("Facilities.urls")),
+    path("", include("Residents.urls")),
+    path("", include("Visitors.urls")),
+    path("", include("Estates.urls")),
+    path("", include("GatePeApp.urls")),
+    path("", include("Community.urls")),
     
 
 
