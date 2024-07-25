@@ -177,6 +177,11 @@ cython_debug/
 *.txt
 
 */migrations/0001_initial.py
-
+*.pyc
 settings.py
 .env
+
+
+__pycache__/
+*.py[cod]
+*$py.class
