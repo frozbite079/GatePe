@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from Estates.models import *
 
+from Bookings.models import *
 # Custom User Manager
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -33,7 +35,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     role = models.CharField(max_length=50, choices=USER_ROLES)
-    estate = models.ForeignKey('Estate', on_delete=models.CASCADE, null=True, blank=True)
+    estate = models.ForeignKey(Estate, on_delete=models.CASCADE, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
