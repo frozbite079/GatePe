@@ -24,7 +24,10 @@ urlpatterns = [
     path("facilities", include("Facilities.urls")),
     path("residents", include("Residents.urls")),
     path("visitors", include("Bookings.urls")),
-    path("workers", include("Workers.urls")),
+    path("estates", include("Estates.urls")),
+    path("gatepeapp", include("GatePeApp.urls")),
+    path("community", include("Community.urls")),
+    
 
 
    

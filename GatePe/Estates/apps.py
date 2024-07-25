@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class WorkersConfig(AppConfig):
+class EstatesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Workers'
+    name = 'Estates'

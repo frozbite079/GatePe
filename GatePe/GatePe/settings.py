@@ -37,7 +37,8 @@ PROJECT_APPS = [
     'Facilities',
     'Residents',
     'Visitors',
-    'Workers',
+    'GatePeApp',
+    'Estates',
 ]
 
 INSTALLED_APPS = [
