@@ -6,6 +6,7 @@ from .serializer import *
 
 ###############################  ResidentView  ##########################################
 class ResidentView(APIView):
+    serializer_class = ResidentSerializer  
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = ResidentSerializer(data=data)
@@ -56,6 +57,7 @@ class ResidentView(APIView):
 
 ############################## ServiceRequestView ################################################
 class ServiceRequestView(APIView):
+    serializer_class = ServiceRequestSerializer  
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = ServiceRequestSerializer(data=data)
@@ -105,6 +107,7 @@ class ServiceRequestView(APIView):
 
 ############################################# ComplaintView ############################################
 class ComplaintView(APIView):
+    serializer_class = ComplaintSerializer  
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = ComplaintSerializer(data=data)

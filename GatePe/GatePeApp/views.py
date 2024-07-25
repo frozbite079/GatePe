@@ -4,6 +4,8 @@ from .models import User
 from .serializer import UserSerializer
 
 class UserView(APIView):
+    serializer_class = UserSerializer  
+
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = UserSerializer(data=data)

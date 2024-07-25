@@ -4,6 +4,7 @@ from .models import *
 from .serializer import *
 
 class EstateView(APIView):
+    serializer_class = EstateSerializer  
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = EstateSerializer(data=data)
@@ -53,6 +54,7 @@ class EstateView(APIView):
 
 ############################# Property Views #############################
 class PropertyView(APIView):
+    serializer_class = PropertySerializer  
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = PropertySerializer(data=data)

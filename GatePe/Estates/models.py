@@ -14,10 +14,11 @@ class Estate(models.Model):
 # Property Model
 class Property(models.Model):
     estate = models.ForeignKey(Estate, on_delete=models.CASCADE)
+    block = models.CharField(max_length=10)
     unit_number = models.CharField(max_length=50)
     type = models.CharField(max_length=50)  # (Apartment, Villa, etc.)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.unit_number} - {self.type}'
+        return f'{self.block} - {self.unit_number} ({self.type})'
