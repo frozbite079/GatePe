@@ -1,14 +1,14 @@
 from django.db import models
-
 from Estates.models import *
-
 from Bookings.models import *
+
+
 # Facility Model
 class Facility(models.Model):
-    estate = models.ForeignKey(Estate, on_delete=models.CASCADE)
+    estate = models.ForeignKey(Estate, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    booking_slot_configuration = models.JSONField()  # Booking configuration details
+    booking_slot_configuration = models.JSONField(blank=True, null=True)  # Booking configuration details
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     billing = models.OneToOneField('Billing', on_delete=models.SET_NULL, null=True, blank=True, related_name='facility_detail')
@@ -18,7 +18,7 @@ class Facility(models.Model):
     
 # Billing Model
 class Billing(models.Model):
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, related_name='billings')
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, related_name='billings',null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     payment_status = models.CharField(max_length=50)  # (Pending, Paid, Overdue)

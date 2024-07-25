@@ -17,7 +17,7 @@ class Resident(models.Model):
     
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
     relation = models.CharField(max_length=50, choices=RELATION_CHOICES, blank=True, null=True)

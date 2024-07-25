@@ -7,9 +7,9 @@ from Facilities.models import *
 
 # Booking Model
 class Booking(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.SET_NULL,null=True)
+    facility = models.ForeignKey(Facility, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,blank=True, null=True)
     booking_time = models.DateTimeField()
     duration = models.IntegerField()  # Duration in minutes
     payment_status = models.CharField(max_length=50)
@@ -17,4 +17,4 @@ class Booking(models.Model):
     status = models.CharField(max_length=50)  # (Pending, Confirmed, Cancelled, etc.)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+   
