@@ -25,7 +25,7 @@ class SurveySerializer(serializers.ModelSerializer):
         # estate=EstateSerializer(many=False)
        
         class Meta:
-            model=CommunityPost
+            model=Survey
             fields=( 'estate','title','questions')
 
 

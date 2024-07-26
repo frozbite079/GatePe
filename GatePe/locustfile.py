@@ -5,41 +5,42 @@ import random
 
 class UserBehavior(TaskSet):
     @task(1)
-    def get_bookings(self):
-        self.client.get("/bokingview")
+    def get_survey(self):
+        self.client.get("/survey/")
 
     @task(2)
-    def create_booking(self):
+    def create_survey(self):
         data = {
-            "property": 1,
-            "facility": 1,
-            "user": 1,
-            "booking_time": "2023-07-26T14:00:00Z",
-            "duration": 120,
-            "payment_status": "Paid",
-            "qr_code": "new_qr_code",
-            "status": "Confirmed"
+            "estate":1,
+            "title":"jndfgjskfdg",
+            "questions": [
+                {"question": "What is your favorite color?", "type": "text"},
+                {"question": "How satisfied are you with our service?", "type": "rating", "options": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"]}
+            ]
         }
-        self.client.post("/bokingview", json=data)
+        self.client.post("/survey/", json=data)
 
     @task(1)
-    def update_booking(self):
-        # Randomly select a booking ID from a set of existing IDs
-        booking_id = random.randint(1, 1000)  # Adjust this range based on your test data
+    def update_survey(self):
+        survey_id = random.randint(1, 100)  # Adjust this range based on your test data
         data = {
-            "id": booking_id,
-            "status": "Cancelled"
+            "id": survey_id,
+            "title": "Updated Survey Title",
+            "questions": [
+                {"question": "Updated question?", "type": "text"}
+            ]
         }
-        self.client.patch("/bokingview", json=data)
+        self.client.patch("/survey/", json=data)
 
     @task(1)
-    def delete_booking(self):
+    def delete_notice(self):
         # Randomly select a booking ID from a set of existing IDs
-        booking_id = random.randint(1, 1000)  # Adjust this range based on your test data
+        survey_id = random.randint(1, 100)  # Adjust this range based on your test data
         data = {
-            "id": booking_id
+            "id": survey_id
         }
-        self.client.delete("/bokingview", json=data)
+        response = self.client.delete("/survey/", json=data)
+        self.client.delete("/survey/", json=data)
 
 class WebsiteUser(HttpUser):
     tasks = [UserBehavior]
