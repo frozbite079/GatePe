@@ -6,4 +6,4 @@ class VisitorSerializer(serializers.ModelSerializer):
     # security_personnel= serializers.StringRelatedField(many=False)
     class Meta:
         model=Visitor
-        fields=('name','contact','location','reason_for_visit','approval_status','visit_time','security_personnel','resident')
+        fields=('name','contact','location','reason_for_visit','approval_status','visit_time','security_personnel')

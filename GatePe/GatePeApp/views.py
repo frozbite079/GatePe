@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from .models import User
 from .serializer import UserSerializer
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
