@@ -1,7 +1,7 @@
 from locust import HttpUser, TaskSet, task, between
 import random
 
-# Bookings api test 
+# Survey api test 
 
 class UserBehavior(TaskSet):
     @task(1)
@@ -11,7 +11,7 @@ class UserBehavior(TaskSet):
     @task(2)
     def create_survey(self):
         data = {
-            "estate":1,
+            "estate":3,
             "title":"jndfgjskfdg",
             "questions": [
                 {"question": "What is your favorite color?", "type": "text"},
