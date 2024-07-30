@@ -16,59 +16,68 @@ class CommunityPostView(APIView):
     serializer_class = CommunityPostSerializer  
     
     def get(self, request, *args, **kwargs):
-        response ={'status':200}
-        display_communitypost =CommunityPost.objects.all()
-       
+        if request.user_id:
+            response ={'status':200}
+            display_communitypost =CommunityPost.objects.all()
+        
 
-     
         
-      
-        serializer=CommunityPostSerializer(display_communitypost,many=True)
-        response['data']=serializer.data # type: ignore
+            
         
-        return Response(response)
-              
-    
-    def post(self, request, *args, **kwargs):
-        data=request.data
-        serializer=CommunityPostSerializer(data=data)
-        if serializer.is_valid():
-      
-            serializer.save()
-            response={"status":200,"message":"Community Post Data Added"}
+            serializer=CommunityPostSerializer(display_communitypost,many=True)
+            response['data']=serializer.data # type: ignore
+            
             return Response(response)
+                
+        else:
+            return Response({'Error':'Unauthorized'})   
+    def post(self, request, *args, **kwargs):
         
-        return Response(serializer.errors)
-    
+        if request.user_id:
+            data=request.data
+            serializer=CommunityPostSerializer(data=data)
+            if serializer.is_valid():
+        
+                serializer.save()
+                response={"status":200,"message":"Community Post Data Added"}
+                return Response(response)
+            
+            return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'})   
     def patch(self,request,*args, **kwargs):
     
-        response={'status':200}
-        data=request.data
-        try:
-            obj=CommunityPost.objects.get(id=data.get('id'))
-            serializer=CommunityPostSerializer(obj,data=data,partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                response['data']=serializer.data# type: ignore
-                return Response(response)
-            else :
-                return Response(serializer.errors)
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':'invalid id'})
-        
+        if request.user_id:
+            response={'status':200}
+            data=request.data
+            try:
+                obj=CommunityPost.objects.get(id=data.get('id'))
+                serializer=CommunityPostSerializer(obj,data=data,partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    response['data']=serializer.data# type: ignore
+                    return Response(response)
+                else :
+                    return Response(serializer.errors)
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':'invalid id'})
+        else:
+            return Response({'Error':'Unauthorized'})       
     def delete(self,request,*args, **kwargs):
-        response={'status':200}
-        data=request.data 
-        try:
-            obj=CommunityPost.objects.get(id=data.get('id'))
-            obj.delete()
-            return Response({'status':200,'message':"Deleted"})
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':"Invalid id"})
+        if request.user_id:
+            response={'status':200}
+            data=request.data 
+            try:
+                obj=CommunityPost.objects.get(id=data.get('id'))
+                obj.delete()
+                return Response({'status':200,'message':"Deleted"})
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':"Invalid id"})
 
-
+        else:
+            return Response({'Error':'Unauthorized'})   
 
 #########################  notice  ##################################
 
@@ -76,59 +85,69 @@ class NoticeView(APIView):
     serializer_class = NoticeSerializer  
     
     def get(self, request, *args, **kwargs):
-        response ={'status':200}
-        display_notice =Notice.objects.all()
-       
+        if request.user_id:
+            response ={'status':200}
+            display_notice =Notice.objects.all()
+        
 
-     
         
-      
-        serializer=NoticeSerializer(display_notice,many=True)
-        response['data']=serializer.data # type: ignore
+            
         
-        return Response(response)
-              
+            serializer=NoticeSerializer(display_notice,many=True)
+            response['data']=serializer.data # type: ignore
+            
+            return Response(response)
+        else:
+            return Response({'Error':'Unauthorized'})   
+                
     
     def post(self, request, *args, **kwargs):
-        data=request.data
-        serializer=NoticeSerializer(data=data)
-        if serializer.is_valid():
-      
-            serializer.save()
-            response={"status":200,"message":"Notice Added"}
-            return Response(response)
-        
-        return Response(serializer.errors)
-    
-    def patch(self,request,*args, **kwargs):
-    
-        response={'status':200}
-        data=request.data
-        try:
-            obj=Notice.objects.get(id=data.get('id'))
-            serializer=NoticeSerializer(obj,data=data,partial=True)
+        if request.user_id:
+            data=request.data
+            serializer=NoticeSerializer(data=data)
             if serializer.is_valid():
-                serializer.save()
-                response['data']=serializer.data# type: ignore
-                return Response(response)
-            else :
-                return Response(serializer.errors)
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':'invalid id'})
         
+                serializer.save()
+                response={"status":200,"message":"Notice Added"}
+                return Response(response)
+            
+            return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'})   
+        
+    def patch(self,request,*args, **kwargs):
+        
+        if request.user_id:
+            response={'status':200}
+            data=request.data
+            try:
+                obj=Notice.objects.get(id=data.get('id'))
+                serializer=NoticeSerializer(obj,data=data,partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    response['data']=serializer.data# type: ignore
+                    return Response(response)
+                else :
+                    return Response(serializer.errors)
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':'invalid id'})
+        else:
+            return Response({'Error':'Unauthorized'})       
     def delete(self,request,*args, **kwargs):
-        response={'status':200}
-        data=request.data 
-        try:
-            obj=Notice.objects.get(id=data.get('id'))
-            obj.delete()
-            return Response({'status':200,'message':"Deleted"})
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':"Invalid id"})
+        if request.user_id:
+            response={'status':200}
+            data=request.data 
+            try:
+                obj=Notice.objects.get(id=data.get('id'))
+                obj.delete()
+                return Response({'status':200,'message':"Deleted"})
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':"Invalid id"})
 
-
+        else:
+            return Response({'Error':'Unauthorized'})   
 
 
 
@@ -138,58 +157,69 @@ class SurveyView(APIView):
     serializer_class = SurveySerializer  
     
     def get(self, request, *args, **kwargs):
-        response ={'status':200}
-        display_survey =Survey.objects.all()
+        if request.user_id:
+            response ={'status':200}
+            display_survey =Survey.objects.all()
        
 
      
         
       
-        serializer=SurveySerializer(display_survey,many=True)
-        response['data']=serializer.data # type: ignore
-        
-        return Response(response)
-              
+            serializer=SurveySerializer(display_survey,many=True)
+            response['data']=serializer.data # type: ignore
+            
+            return Response(response)
+        else:
+            return Response({'Error':'Unauthorized'})   
+                
     
     def post(self, request, *args, **kwargs):
-        data=request.data
-        serializer=SurveySerializer(data=data)
-        if serializer.is_valid():
-      
-            serializer.save()
-            response={"status":200,"message":"Survey Added"}
-            return Response(response)
+        if request.user_id:
+            data=request.data
+            serializer=SurveySerializer(data=data)
+            if serializer.is_valid():
         
-        return Response(serializer.errors)
+                serializer.save()
+                response={"status":200,"message":"Survey Added"}
+                return Response(response)
+            
+            return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'})   
     
     def patch(self,request,*args, **kwargs):
+        if request.user_id:
     
-        response={'status':200}
-        data=request.data
-        try:
-            obj=Notice.objects.get(id=data.get('id'))
-            serializer=SurveySerializer(obj,data=data,partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                response['data']=serializer.data# type: ignore
-                return Response(response)
-            else :
-                return Response(serializer.errors)
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':'invalid id'})
-        
+            response={'status':200}
+            data=request.data
+            try:
+                obj=Notice.objects.get(id=data.get('id'))
+                serializer=SurveySerializer(obj,data=data,partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    response['data']=serializer.data# type: ignore
+                    return Response(response)
+                else :
+                    return Response(serializer.errors)
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':'invalid id'})
+        else:
+            return Response({'Error':'Unauthorized'})       
     def delete(self,request,*args, **kwargs):
-        response={'status':200}
-        data=request.data 
-        try:
-            obj=Survey.objects.get(id=data.get('id'))
-            obj.delete()
-            return Response({'status':200,'message':"Deleted"})
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':"Invalid id"})
+        if request.user_id:
+            response={'status':200}
+            data=request.data 
+            try:
+                obj=Survey.objects.get(id=data.get('id'))
+                obj.delete()
+                return Response({'status':200,'message':"Deleted"})
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':"Invalid id"})
 
+        else:
+            return Response({'Error':'Unauthorized'})   
 
 
 
@@ -199,58 +229,73 @@ class SurveyResponseView(APIView):
     serializer_class = SurveyResponseSerializer  
     
     def get(self, request, *args, **kwargs):
-        response ={'status':200}
-        display_surveyresponse =SurveyResponse.objects.all()
-       
+        if request.user_id:
 
-     
+            response ={'status':200}
+            display_surveyresponse =SurveyResponse.objects.all()
         
-      
-        serializer=SurveyResponseSerializer(display_surveyresponse,many=True)
-        response['data']=serializer.data # type: ignore
+
         
-        return Response(response)
-              
-    
-    def post(self, request, *args, **kwargs):
-        data=request.data
-        serializer=SurveyResponseSerializer(data=data)
-        if serializer.is_valid():
-      
-            serializer.save()
-            response={"status":200,"message":"Survey Response Added"}
+            
+        
+            serializer=SurveyResponseSerializer(display_surveyresponse,many=True)
+            response['data']=serializer.data # type: ignore
+            
             return Response(response)
         
-        return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'})   
+                
     
-    def patch(self,request,*args, **kwargs):
-    
-        response={'status':200}
-        data=request.data
-        try:
-            obj=SurveyResponse.objects.get(id=data.get('id'))
-            serializer=SurveyResponseSerializer(obj,data=data,partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                response['data']=serializer.data# type: ignore
-                return Response(response)
-            else :
-                return Response(serializer.errors)
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':'invalid id'})
-        
-    def delete(self,request,*args, **kwargs):
-        response={'status':200}
-        data=request.data 
-        try:
-            obj=SurveyResponse.objects.get(id=data.get('id'))
-            obj.delete()
-            return Response({'status':200,'message':"Deleted"})
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':"Invalid id"})
+    def post(self, request, *args, **kwargs):
+        if request.user_id:
 
+            data=request.data
+            serializer=SurveyResponseSerializer(data=data)
+            if serializer.is_valid():
+        
+                serializer.save()
+                response={"status":200,"message":"Survey Response Added"}
+                return Response(response)
+            
+            return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'})   
+        
+        
+    def patch(self,request,*args, **kwargs):
+        if request.user_id:
+    
+            response={'status':200}
+            data=request.data
+            try:
+                obj=SurveyResponse.objects.get(id=data.get('id'))
+                serializer=SurveyResponseSerializer(obj,data=data,partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    response['data']=serializer.data# type: ignore
+                    return Response(response)
+                else :
+                    return Response(serializer.errors)
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':'invalid id'})
+        else:
+            return Response({'Error':'Unauthorized'})    
+    def delete(self,request,*args, **kwargs):
+        if request.user_id:
+
+            response={'status':200}
+            data=request.data 
+            try:
+                obj=SurveyResponse.objects.get(id=data.get('id'))
+                obj.delete()
+                return Response({'status':200,'message':"Deleted"})
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':"Invalid id"})
+        else:
+            return Response({'Error':'Unauthorized'}) 
 
 
 
@@ -258,57 +303,77 @@ class SurveyResponseView(APIView):
 #########################  Feedback  ##################################
 
 class FeedbackView(APIView):
+    
     serializer_class = SurveyResponseSerializer  
     
     def get(self, request, *args, **kwargs):
-        response ={'status':200}
-        display_feedback =Feedback.objects.all()
-       
+        if request.user_id:
 
-     
+            response ={'status':200}
+            display_feedback =Feedback.objects.all()
         
-      
-        serializer=FeedbackSerializer(display_feedback,many=True)
-        response['data']=serializer.data # type: ignore
+
         
-        return Response(response)
-              
-    
-    def post(self, request, *args, **kwargs):
-        data=request.data
-        serializer=FeedbackSerializer(data=data)
-        if serializer.is_valid():
-      
-            serializer.save()
-            response={"status":200,"message":"Feedback Added"}
+            
+        
+            serializer=FeedbackSerializer(display_feedback,many=True)
+            response['data']=serializer.data # type: ignore
+            
             return Response(response)
-        
-        return Response(serializer.errors)
-    
-    def patch(self,request,*args, **kwargs):
-    
-        response={'status':200}
-        data=request.data
-        try:
-            obj=Feedback.objects.get(id=data.get('id'))
-            serializer=FeedbackSerializer(obj,data=data,partial=True)
+        else:
+            return Response({'Error':'Unauthorized'}) 
+
+
+    def post(self, request, *args, **kwargs):
+        if request.user_id:
+
+            data=request.data
+            serializer=FeedbackSerializer(data=data)
             if serializer.is_valid():
-                serializer.save()
-                response['data']=serializer.data# type: ignore
-                return Response(response)
-            else :
-                return Response(serializer.errors)
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':'invalid id'})
         
+                serializer.save()
+                response={"status":200,"message":"Feedback Added"}
+                return Response(response)
+            
+            return Response(serializer.errors)
+        else:
+            return Response({'Error':'Unauthorized'}) 
+
+
+            
+        
+    def patch(self,request,*args, **kwargs):
+        if request.user_id:
+
+    
+            response={'status':200}
+            data=request.data
+            try:
+                obj=Feedback.objects.get(id=data.get('id'))
+                serializer=FeedbackSerializer(obj,data=data,partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    response['data']=serializer.data# type: ignore
+                    return Response(response)
+                else :
+                    return Response(serializer.errors)
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':'invalid id'})
+        else:
+            return Response({'Error':'Unauthorized'}) 
+    
     def delete(self,request,*args, **kwargs):
-        response={'status':200}
-        data=request.data 
-        try:
-            obj=Feedback.objects.get(id=data.get('id'))
-            obj.delete()
-            return Response({'status':200,'message':"Deleted"})
-        except Exception as e:
-            print(e)
-        return Response({'status':400,'message':"Invalid id"})
+        if request.user_id:
+
+            response={'status':200}
+            data=request.data 
+            try:
+                obj=Feedback.objects.get(id=data.get('id'))
+                obj.delete()
+                return Response({'status':200,'message':"Deleted"})
+            except Exception as e:
+                print(e)
+            return Response({'status':400,'message':"Invalid id"})
+        else:
+            return Response({'Error':'Unauthorized'}) 

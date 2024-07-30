@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path,include
-
+from UserLogin import views as login
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("Bookings.urls")),
@@ -27,6 +27,10 @@ urlpatterns = [
     path("", include("Estates.urls")),
     path("", include("GatePeApp.urls")),
     path("", include("Community.urls")),
+    path("login/",login.login_view,name="login"),
+    path("demo_view/",login.demo_view,name= "demo_view")
+
+    
     
 
 

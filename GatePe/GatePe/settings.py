@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import read_dotenv
+from datetime import timedelta
 
-load_dotenv()
+JWT_SECRET_KEY = '8RO3Layiw8WP3hTT2rNCH7xrJTNwHR-YOsBnnNEKvuw'
+JWT_ALGORITHM = 'HS256'
+JWT_EXPIRATION_DELTA = timedelta(minutes=20)
+
+read_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +45,8 @@ PROJECT_APPS = [
     'GatePeApp',
     'Estates',
     'Community',
+    'UserRegestration',
+    'UserLogin',
 ]
 
 INSTALLED_APPS = [
@@ -50,6 +57,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
     
     # Third-party apps
     'rest_framework',
@@ -66,6 +74,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "GatePe.middleware.JWTAuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = "GatePe.urls"
