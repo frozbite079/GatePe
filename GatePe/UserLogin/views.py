@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from utility.utils import generate_jwt_token
 from UserRegestration.models import UserRegestration
-import json
+import json 
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
